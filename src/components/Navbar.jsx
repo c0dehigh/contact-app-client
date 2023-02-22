@@ -1,4 +1,4 @@
-import SearchContacts from "./contact/SearchContacts";
+import SearchContacts from "./Contacts/SearchContacts";
 import { PURPLE, BACKGROUND } from "../helpers/colors";
 const Navbar = () => {
   return (
