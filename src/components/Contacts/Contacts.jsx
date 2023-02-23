@@ -2,6 +2,7 @@ import React from "react";
 import Contact from "./Contact";
 import Spinner from "../Spinner";
 import { CURRENTLINE, ORANGE, PINK } from "../../helpers/colors";
+import { Link } from "react-router-dom";
 
 const Contacts = ({ contacts, loading }) => {
   return (
@@ -11,10 +12,14 @@ const Contacts = ({ contacts, loading }) => {
           <div className="row">
             <div className="col">
               <p className="h3">
-                <button className="btn mx-2" style={{ backgroundColor: PINK }}>
+                <Link
+                  to={"/contacts/add"}
+                  className="btn mx-2"
+                  style={{ backgroundColor: PINK }}
+                >
                   Create new contact
                   <i className="fa fa-plus-circle"></i>
-                </button>
+                </Link>
               </p>
             </div>
           </div>
