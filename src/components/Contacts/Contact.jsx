@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import { PURPLE, ORANGE, CYAN, RED, CURRENTLINE } from "../../helpers/colors";
 
-const Contact = ({contact}) => {
+const Contact = ({ contact }) => {
   return (
     <div className="col-md-6">
       <div style={{ backgroundColor: CURRENTLINE }} className="card my-2">
@@ -22,16 +23,11 @@ const Contact = ({contact}) => {
                 </li>
 
                 <li className="list-group-item list-group-item-dark">
-                  <span className="fw-bold ">Phone</span>
-                  :{" "}
-                  {contact.mobile}
+                  <span className="fw-bold ">Phone</span>: {contact.mobile}
                 </li>
 
                 <li className="list-group-item list-group-item-dark">
-
-                  <span className="fw-bold ">Email</span>
-                  :{" "}
-                  {contact.email}
+                  <span className="fw-bold ">Email</span>: {contact.email}
                 </li>
               </ul>
             </div>
@@ -39,9 +35,13 @@ const Contact = ({contact}) => {
               <button className="btn my-1" style={{ backgroundColor: ORANGE }}>
                 <i className="fa fa-pencil"></i>
               </button>
-              <button className="btn my-1" style={{ backgroundColor: CYAN }}>
+              <Link
+                to={`/contacts/${contact._id}`}
+                className="btn my-1"
+                style={{ backgroundColor: CYAN }}
+              >
                 <i className="fa fa-eye"></i>
-              </button>
+              </Link>
               <button className="btn my-1" style={{ backgroundColor: RED }}>
                 <i className="fa fa-trash"></i>
               </button>
