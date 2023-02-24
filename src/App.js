@@ -7,6 +7,7 @@ import {
   EditContact,
   Navbar,
   SearchContact,
+  ViewContact,
 } from "./components";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import {
@@ -20,6 +21,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [getContacts, setContacts] = useState([]);
   const [getGroups, setGroups] = useState([]);
+  const [render, setRender] = useState(false);
   const [getContact, setContact] = useState({
     fullname: "",
     photo: "",
@@ -51,6 +53,24 @@ function App() {
     fetchAll();
   }, []);
 
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        setLoading(true);
+        const { data: contactsData } = await getAllContacts();
+
+        setContacts(contactsData);
+
+        setLoading(false);
+      } catch (error) {
+        console.log(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchAll();
+  }, [render]);
+
   const createContactForm = async (event) => {
     event.preventDefault();
     try {
@@ -58,6 +78,7 @@ function App() {
 
       if (status == 200) {
         setContact({});
+        setRender(!render);
         navigate("/contacts");
       }
     } catch (error) {
@@ -90,7 +111,7 @@ function App() {
             />
           }
         />
-        <Route path="/contacts/:contactId" element={<Contact />} />
+        <Route path="/contacts/:contactId" element={<ViewContact />} />
         <Route path="/contacts/edit/:contactId" element={<EditContact />} />
       </Routes>
     </div>
