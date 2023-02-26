@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { confirmAlert } from "react-confirm-alert";
 import {
   AddContact,
   Contact,
@@ -15,8 +15,16 @@ import {
   getAllGroup,
   createContact,
   getAllGroups,
+  deleteContact,
 } from "./helpers/fetchService";
 import "./App.css";
+import {
+  COMMENT,
+  CURRENTLINE,
+  FOREGROUND,
+  PURPLE,
+  YELLOW,
+} from "./helpers/colors";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -72,6 +80,62 @@ function App() {
     fetchAll();
   }, [render]);
 
+  const confirm = (contactId, contactFullname) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            dir="ltr"
+            style={{
+              backgroundColor: CURRENTLINE,
+              border: `1px solid ${PURPLE} `,
+              borderRadius: "1em",
+            }}
+            className="p-4"
+          >
+            <h1 style={{ color: YELLOW }}>Remove contact</h1>
+            <p style={{ color: FOREGROUND }}>
+              {" "}
+              Are you sure to delete {contactFullname} ?{" "}
+            </p>
+            <button
+              onClick={() => {
+                removeContact(contactId);
+                onClose();
+              }}
+              className=" btn   mx-2"
+              style={{ backgroundColor: PURPLE }}
+            >
+              Yeah
+            </button>
+            <button
+              onClick={onClose}
+              className="btn"
+              style={{ backgroundColor: COMMENT }}
+            >
+              Cancel
+            </button>
+          </div>
+        );
+      },
+    });
+  };
+
+  const removeContact = async (contactId) => {
+    try {
+      setLoading(true);
+      const response = await deleteContact(contactId);
+      if (response) {
+        const { data: contactsData } = await getAllContacts();
+        setContacts(contactsData);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+      setLoading(false);
+    }
+  };
+
   const createContactForm = async (event) => {
     event.preventDefault();
     try {
@@ -98,7 +162,13 @@ function App() {
         <Route path="/" element={<Navigate to="/contacts" />} />
         <Route
           path="/contacts"
-          element={<Contacts contacts={getContacts} loading={loading} />}
+          element={
+            <Contacts
+              contacts={getContacts}
+              loading={loading}
+              confirm={confirm}
+            />
+          }
         />
         <Route
           path="/contacts/add"
@@ -113,7 +183,10 @@ function App() {
           }
         />
         <Route path="/contacts/:contactId" element={<ViewContact />} />
-        <Route path="/contacts/edit/:contactId" element={<EditContact />} />
+        <Route
+          path="/contacts/edit/:contactId"
+          element={<EditContact render={render} setRender={setRender} />}
+        />
       </Routes>
     </div>
   );
