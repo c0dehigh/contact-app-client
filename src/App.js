@@ -14,6 +14,7 @@ import {
   getAllContacts,
   getAllGroup,
   createContact,
+  getAllGroups,
 } from "./helpers/fetchService";
 import "./App.css";
 
@@ -38,7 +39,7 @@ function App() {
       try {
         setLoading(true);
         const { data: contactsData } = await getAllContacts();
-        const { data: groupsData } = await getAllGroup();
+        const { data: groupsData } = await getAllGroups();
 
         console.log(groupsData);
         setContacts(contactsData);

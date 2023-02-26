@@ -13,12 +13,13 @@ export const getAllContacts = () => {
 // Get method
 export const getContact = (contactId) => {
   const url = `${SERVER_URL}/api/getone/${contactId}`;
+
   return axios.get(url);
 };
 
 // Get All Group
 // Get method
-export const getAllGroup = () => {
+export const getAllGroups = () => {
   const url = `${SERVER_URL}/api/getgroups/`;
   return axios.get(url);
 };

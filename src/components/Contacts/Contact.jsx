@@ -32,9 +32,13 @@ const Contact = ({ contact }) => {
               </ul>
             </div>
             <div className="col-md-1 col-sm-1 d-flex flex-column align-items-center ">
-              <button className="btn my-1" style={{ backgroundColor: ORANGE }}>
+              <Link
+                to={`/contacts/edit/${contact._id}`}
+                className="btn my-1"
+                style={{ backgroundColor: ORANGE }}
+              >
                 <i className="fa fa-pencil"></i>
-              </button>
+              </Link>
               <Link
                 to={`/contacts/${contact._id}`}
                 className="btn my-1"
