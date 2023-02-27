@@ -33,7 +33,7 @@ const Contacts = ({ contacts, loading, confirm }) => {
             {contacts.length > 0 ? (
               contacts.map((c) => (
                 <Contact
-                  key={c.id}
+                  key={c._id}
                   confirm={() => confirm(c._id, c.fullname)}
                   contact={c}
                 />

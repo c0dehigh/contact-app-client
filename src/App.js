@@ -30,6 +30,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [getContacts, setContacts] = useState([]);
   const [getGroups, setGroups] = useState([]);
+  const [getFilteredContact, setFilteredContact] = useState([]);
   const [render, setRender] = useState(false);
   const [getContact, setContact] = useState({
     fullname: "",
@@ -39,6 +40,8 @@ function App() {
     job: "",
     group: "",
   });
+
+  // const [query, setQuery] = useState({ text: "" });
 
   const navigate = useNavigate();
 
@@ -51,6 +54,7 @@ function App() {
 
         console.log(groupsData);
         setContacts(contactsData);
+        setFilteredContact(contactsData);
         setGroups(groupsData);
         setLoading(false);
       } catch (error) {
@@ -155,16 +159,27 @@ function App() {
     setContact({ ...getContact, [event.target.name]: event.target.value });
   };
 
+  const contactSearch = (event) => {
+    // setQuery({ ...query, text: event.target.value });
+    const allContacts = getContacts.filter((contact) => {
+      return contact.fullname
+        .toLowerCase()
+        .includes(event.target.value.toLowerCase());
+    });
+    setFilteredContact(allContacts);
+    console.log(`All ${allContacts}`);
+  };
+
   return (
     <div className="App">
-      <Navbar />
+      <Navbar search={contactSearch} />
       <Routes>
         <Route path="/" element={<Navigate to="/contacts" />} />
         <Route
           path="/contacts"
           element={
             <Contacts
-              contacts={getContacts}
+              contacts={getFilteredContact}
               loading={loading}
               confirm={confirm}
             />

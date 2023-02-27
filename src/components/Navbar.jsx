@@ -1,6 +1,6 @@
 import SearchContacts from "./Contacts/SearchContacts";
 import { PURPLE, BACKGROUND } from "../helpers/colors";
-const Navbar = () => {
+const Navbar = ({ search }) => {
   return (
     <nav
       className="navbar navbar-dark navbar-expand-sm shadow-lg"
@@ -19,7 +19,7 @@ const Navbar = () => {
           </div>
 
           <div className="col">
-            <SearchContacts />
+            <SearchContacts search={search} />
           </div>
         </div>
       </div>

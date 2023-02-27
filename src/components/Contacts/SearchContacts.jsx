@@ -1,6 +1,6 @@
 import { PURPLE } from "../../helpers/colors";
 
-const SearchContacts = () => {
+const SearchContacts = ({ search }) => {
   return (
     <div className="input-group mx-2 w-75">
       <span
@@ -12,6 +12,8 @@ const SearchContacts = () => {
       </span>
       <input
         className="form-control"
+        // value={query.text}
+        onChange={search}
         type="text"
         style={{ borderColor: PURPLE }}
         placeholder="search contacts"
