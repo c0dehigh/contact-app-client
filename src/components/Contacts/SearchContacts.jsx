@@ -1,6 +1,8 @@
 import { PURPLE } from "../../helpers/colors";
-
+import { useContext } from "react";
+import { ContactContext } from "../context/contactsContext";
 const SearchContacts = ({ search }) => {
+  const {contactQuery, contactSearch} = useContext(ContactContext)
   return (
     <div className="input-group mx-2 w-75">
       <span
@@ -12,8 +14,8 @@ const SearchContacts = ({ search }) => {
       </span>
       <input
         className="form-control"
-        // value={query.text}
-        onChange={search}
+        value={contactQuery.text}
+        onChange={contactSearch}
         type="text"
         style={{ borderColor: PURPLE }}
         placeholder="search contacts"
